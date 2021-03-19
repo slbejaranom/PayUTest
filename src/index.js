@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const axios = require("axios");
+const bodyParser = require('body-parser');
+
 
 function makeid(length) {
     var result           = '';
@@ -14,24 +16,36 @@ function makeid(length) {
  }
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json())
+
 app.get("/", (req, res)=>{
     res.sendFile('public/form.html', { root: __dirname });    
 });
 app.post("/", (req,res)=>{
-    //acá ejecutamos el POST al servidor de la transacción
-    var request = new XMLHttpRequest();
-    request.open('POST', 'https://api.paymentsos.com/payments');
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.setRequestHeader('api-version', '1.3.0');
-    request.setRequestHeader('x-payments-os-env', 'test');
-    request.setRequestHeader('app-id', 'com.testwebsite.payutest');
-    request.setRequestHeader('private-key', 'cabbc983-b175-4d56-95ac-17d6996b8f82');
-    request.setRequestHeader('idempotency-key', makeid(10));
-    var body = {
-    'amount': 100,
-    'currency': 'COP',
-    'statement_soft_descriptor': 'Test Pago'};
-    request.send(JSON.stringify(body));
+    console.log(req.body)    
+    //post con axios
+    let options = {
+        headers: {
+            'Content-Type':'application/json',
+            'api-version':'1.3.0',
+            'x-payments-os-env': 'test',
+            'app-id': 'com.testwebsite.payutest',
+            'private-key': 'cabbc983-b175-4d56-95ac-17d6996b8f82',
+            'idempotency-key': makeid(10)
+        }
+    };
+    axios.post("https://api.paymentsos.com/payments",{
+        'amount': 2000000,
+        'currency': 'COP'
+    },options).then((response)=>{
+        console.log("Respuesta de la api: " + response.status);
+        if(response.status == 201){
+            console.log("Pago creado");
+            //axios.post("https://api.paymentsos.com/payments/"+response.data.id+"/authorizations",{
+
+            //},options);
+        }
+    },(error)=>{console.log(error)});
 });
 
 app.listen(5000);

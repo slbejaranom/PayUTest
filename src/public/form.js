@@ -49,8 +49,13 @@ const fonts = [
           additionalData,
           environment: 'test' // Set the PaymentsOS environment you're connecting to
       })
-      console.log(`The response is ${JSON.stringify(result)}`)
-      $.post("http://localhost:5000",{
-        
+      console.log(`The response is ${JSON.stringify(result)}`);
+      let respuesta = JSON.parse(result)
+      console.log(respuesta.token);
+
+      
+
+      $.post("http://localhost:5000",{          
+        token:respuesta.token
       });
   })
