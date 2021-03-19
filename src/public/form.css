@@ -1,5 +1,6 @@
 .checkout-page{
     border: 1px solid black;
+    width:20%;
 }
 .input{
     -moz-appearance: textfield;
@@ -12,7 +13,7 @@
     font: -webkit-small-control;
     margin-top: 5px;
     padding: 2px 3px;
-    width: 398px;    
+    width: 90%;    
 }
 #exp-date{
 

@@ -50,4 +50,7 @@ const fonts = [
           environment: 'test' // Set the PaymentsOS environment you're connecting to
       })
       console.log(`The response is ${JSON.stringify(result)}`)
+      $.post("http://localhost:5000",{
+        
+      });
   })
