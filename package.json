@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/slbejaranom/PayUTest/issues"
   },
-  "homepage": "https://github.com/slbejaranom/PayUTest#readme"
+  "homepage": "https://github.com/slbejaranom/PayUTest#readme",
+  "dependencies": {
+    "json": "^10.0.0"
+  }
 }
