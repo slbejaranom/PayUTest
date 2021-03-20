@@ -9,7 +9,7 @@ const fonts = [
       src: 'https://fonts.googleapis.com/css?family=Source+Code+Pro',
     }
   ]
-  const formElements = new POS.Fields("99346d84-5187-4221-9c16-dc51a8de27fa", {
+  const formElements = new POS.Fields("d2a0e6e9-526b-434f-840b-90de8a550205", {
     fonts
   })
   
@@ -55,7 +55,10 @@ const fonts = [
 
       
 
-      $.post("http://localhost:5000",{          
-        token:respuesta.token
+      $.ajax({
+        url: 'http://localhost:5000',
+        type: 'POST',
+        contentType: 'application/json',
+        data: result
       });
   })
